@@ -4,15 +4,17 @@ import Imagen from "../models/image.model.js";
 
 export const getAllImages = async(req,res)=>{
     const datos = await Imagen.find()
-    console.log(datos)
     res.json(datos)
 }
-export const modifyImages = async(req,res)=>{
- 
-    
+
+export const viewImage = async(req,res)=>{
+    console.log("hola")
+    const data = await Imagen.findOne({_id:req.params.id})
+    if(!data) return res.status(400).json({message:'No se encontro imagen'})
+    res.json(data)     
 }
+
 export const uploadImages = async(req,res)=>{
-    console.log("si")
     const {imagen,titulo,usuario }=req.body
 
     try {
