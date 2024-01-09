@@ -2,14 +2,13 @@ import amqp from "amqplib";
 
 //Variables
 const RABBIT_HOST = "192.168.100.5";
-const RABBIT_PORT = "15672";
+const RABBIT_PORT = "5672";
 const RABBIT_USERNAME = "allan";
 const RABBIT_PASSWORD = "allan";
-const RABBIT_VHOST = "cola";
+const RABBIT_VHOST = "host-cola";
 
 //Coneccion
 const RABBITMQ_URL = `amqp://${RABBIT_USERNAME}:${RABBIT_PASSWORD}@${RABBIT_HOST}:${RABBIT_PORT}/${RABBIT_VHOST}`;
-
 class RabbitMQConfig {
   constructor() {
     this.channel = null;
@@ -35,7 +34,7 @@ class RabbitMQConfig {
     console.log(`Enviando mensaje a ${queueName} en ${RABBIT_VHOST}`);
   }
 
-  async subToQueue(queueName, callback, options) {
+  async subscribeToQueue(queueName, callback, options) {
     await this.channel.consume(
       queueName,
       (msg) => {
